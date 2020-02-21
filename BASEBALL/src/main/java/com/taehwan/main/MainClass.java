@@ -16,23 +16,37 @@ public class MainClass {
 			BeanConfigClass.class);
 	public static MapperInterface mapper = context.getBean("test_mapper", MapperInterface.class);
 
+	public static String ranking() {
+		//JdbcBean rank = new JdbcBean();
+		List<JdbcBean> list1 = mapper.select_data();
+		int RANK = 0;
+		
+		String winner = null;
+		
+		for (JdbcBean bean1 : list1) {
+			if(bean1.getWin() >= RANK) {
+				RANK = bean1.getWin();
+				winner=bean1.getTeam_name();
+			}
+		}
+		return winner;
+	}
+	
 	public static void SELECT() {
 		// SELECT
 		List<JdbcBean> list1 = mapper.select_data();
 		for (JdbcBean bean1 : list1) {
-			System.out.println("=================");
-			System.out.println("@ 팀이름       : " + bean1.getTeam_name());
-			System.out.println("@ 총경기       : " + bean1.getPlay_total());
-			System.out.println("@ 승             : " + bean1.getWin());
-			System.out.println("@ 패             : " + bean1.getLose());
-			System.out.println("@ 무             : " + bean1.getSame());
-			System.out.println("@ 승점          : " + bean1.getPlaywinpoint());
-			System.out.println("@ 차이          : " + bean1.getDifference());
-			System.out.println("@ 전적          : " + bean1.getRecentten());
-			System.out.println("@ 콘티          : " + bean1.getConti());
-			System.out.println("@ 홈             : " + bean1.getHome());
-			System.out.println("@ 원정          : " + bean1.getVisit());
-			System.out.println("=================");
+			System.out.println("■■■■■■■■■■■■■■■■■■■■");
+			System.out.println("■ @ 순위          : " + ranking());
+			System.out.println("■ @ 팀이름       : " + bean1.getTeam_name());
+			System.out.println("■ @ 총경기       : " + bean1.getPlay_total());
+			System.out.println("■ @ 승             : " + bean1.getWin());
+			System.out.println("■ @ 패             : " + bean1.getLose());
+			System.out.println("■ @ 무             : " + bean1.getSame());
+			System.out.println("■ @ 승점          : " + bean1.getPlaywinpoint());
+			System.out.println("■ @ 차이          : " + bean1.getDifference());
+			System.out.println("■ @ 전적          : " + bean1.getRecentten());
+			System.out.println("■■■■■■■■■■■■■■■■■■■■");
 		}
 	}
 
